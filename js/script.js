@@ -30,7 +30,8 @@ $(document).ready(function () {
     $("#infoButton").prop('disabled', true);
     $("#weatherButton").prop('disabled', true);
     $("#virusButton").prop('disabled', true);
-    $("#issButton").prop('disabled', true);
+
+    bounds = new L.LatLngBounds(new L.LatLng(89.99346179538875, 180), new L.LatLng(-89.98155760646617, -180));
 
     //creates map and prevents user from dragging out of bounds
     var mymap = L.map('mapid', {
@@ -39,7 +40,7 @@ $(document).ready(function () {
         zoomControl: false
     })
         .setView([51.505, -0.09], 3)
-        .setMaxBounds(new L.LatLngBounds(new L.LatLng(89.99346179538875, 180), new L.LatLng(-89.98155760646617, -180)))
+        .setMaxBounds(bounds)
         .on('drag', function () {
             mymap.panInsideBounds(bounds, { animate: false });
         });
@@ -71,7 +72,6 @@ $(document).ready(function () {
                     $("#infoButton").prop('disabled', false);
                     $("#weatherButton").prop('disabled', false);
                     $("#virusButton").prop('disabled', false);
-                    $("#issButton").prop('disabled', false);
 
                     locationData.code = result['data'][0].components.country_code.toUpperCase();
                     locationData.country = result['data'][0].components.country;
@@ -304,7 +304,7 @@ $(document).ready(function () {
 
                     issMarker.addTo(mymap);
                     issMarker.setLatLng([result['data'].latitude, result['data'].longitude]);
-                    mymap.setView([result['data'].latitude, result['data'].longitude], 5);
+                    mymap.setView([result['data'].latitude, result['data'].longitude], 2);
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
