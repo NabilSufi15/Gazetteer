@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gazetteer</title>
+
+    <!-- css files -->
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+
+    <!-- Font Awesome -->
+    <link
+      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap -->
+    <link
+      crossorigin="anonymous"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      rel="stylesheet"
+    />
+
+    <!-- Leaflet -->
+    <link
+      crossorigin=""
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- container -->
+    <div class="container">
+      <!-- map -->
+      <div id="mapid"></div>
+      <!-- menu -->
+      <div class="menu fixed-top" id="menu">
+        <!-- navbar -->
+        <nav class="btn-group" role="group" aria-label="First group" disabled>
+          <button
+            type="button"
+            id="infoButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#info"
+          >
+            <i class="fas fa-info-circle"></i>
+          </button>
+          <button
+            type="button"
+            id="weatherButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#weather"
+          >
+            <i class="fas fa-cloud-sun"></i>
+          </button>
+          <button
+            type="button"
+            id="virusButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#virus"
+          >
+            <i class="fas fa-virus"></i>
+          </button>
+          <button
+            type="button"
+            id="issButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#iss"
+          >
+            <i class="fas fa-satellite"></i>
+          </button>
+        </nav>
+        <!-- / navbar end -->
+
+        <!-- Menu Content -->
+        <div class="menucontent">
+          <!-- Country  Information -->
+          <div class="collapse" data-parent="#menu" id="info">
+            <div class="card card-body bg-light overflow-auto">
+              <img
+                alt="flag image"
+                class="card-img-top"
+                height="238.67"
+                id="flag"
+                src=""
+                width="358"
+              />
+              <h1 class="card-title d-flex justify-content-center" id="name">
+                City
+              </h1>
+              <h2 class="text-muted d-flex justify-content-center" id="native">
+                Native City
+              </h2>
+              <table class="table border-bottom mt-3 mb-3">
+                <tbody>
+                  <tr>
+                    <th scope="row">Capital:</th>
+                    <td id="capital"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Continent:</th>
+                    <td id="continent"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Population:</th>
+                    <td id="population"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Area:</th>
+                    <td id="area"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Currency:</th>
+                    <td id="currency"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <h2 class="d-flex justify-content-center text-center">Summary</h2>
+              <p id="summary"></p>
+              <a class="d-flex justify-content-center" href="" id="wiki"
+                >Wikipedia</a
+              >
+            </div>
+          </div>
+          <!-- Country Information End-->
+
+          <!-- Weather -->
+          <div class="collapse" data-parent="#menu" id="weather">
+            <div class="card card-body bg-light overflow-auto">
+              <h1 class="card-title text-center" id="city"></h1>
+              <h4 class="time card-text text-center text-muted" id=""></h4>
+              <div class="d-flex justify-content-center">
+                <p class="display-2" id="temperature">23</p>
+                <img alt="" height="150" id="icon" src="" width="150" />
+              </div>
+              <table class="table border-bottom mt-3 mb-3">
+                <tbody>
+                  <tr>
+                    <th scope="row">Description:</th>
+                    <td class="text-capitalize" id="description"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Humidity:</th>
+                    <td id="humidity"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Speed:</th>
+                    <td id="speed"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Cloud:</th>
+                    <td id="cloud"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pressure:</th>
+                    <td id="pressure"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /Weather End -->
+
+          <!-- CoronaVirus Tracker -->
+          <div class="collapse" data-parent="#menu" id="virus">
+            <div class="card card-body bg-light overflow-auto">
+              <h1 class="card-title text-center">Coronavirus Tracker</h1>
+              <div>
+                <h4 class="text-center text-muted" id="cases"></h4>
+                <canvas height="400" id="pieChart" width="400"></canvas>
+              </div>
+              <br />
+              <div>
+                <h4 class="text-center text-muted">Statistics Today</h4>
+                <canvas height="400" id="barChart" width="400"></canvas>
+              </div>
+              <br />
+            </div>
+          </div>
+          <!-- /CoronaVirus Tracker End -->
+
+          <!-- ISS -->
+          <div class="collapse" data-parent="#menu" id="iss">
+            <div class="card card-body bg-light overflow-auto">
+              <h1 class="d-flex justify-content-center">What Is ISS?</h1>
+              <p class="justify-content-center">
+                The
+                <a
+                  href="https://www.nasa.gov/audience/forstudents/5-8/features/nasa-knows/what-is-the-iss-58.html"
+                  >International Space Station</a
+                >
+                is a large spacecraft in orbit around Earth. It serves as a home
+                where crews of astronauts and cosmonauts live. The space station
+                is also a unique science laboratory. Several nations worked
+                together to build and use the space station. The space station
+                is made of parts that were assembled in space by astronauts. It
+                orbits Earth at an average altitude of approximately 250 miles.
+                It travels at 17,500 mph. This means it orbits Earth every 90
+                minutes. NASA is using the space station to learn more about
+                living and working in space. These lessons will make it possible
+                to send humans farther into space than ever before.
+              </p>
+
+              <div
+                aria-label="Toolbar with button groups"
+                class="btn-toolbar justify-content-center"
+                role="toolbar"
+              >
+                <div
+                  aria-label="Third group"
+                  class="btn-group btn-group-lg mr-2"
+                  role="group"
+                >
+                  <button class="btn btn btn-light" id="trackIss" type="button">
+                    ON
+                  </button>
+                </div>
+                <br />
+                <div
+                  aria-label="Third group"
+                  class="btn-group btn-group-lg"
+                  role="group"
+                >
+                  <button class="btn btn btn-light" id="turnoff" type="button">
+                    OFF
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- / ISS End -->
+        </div>
+        <!-- / Menu Content End -->
+      </div>
+      <!-- /Menu End -->
+    </div>
+    <!-- /Container End -->
+
+    <script
+      crossorigin=""
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    ></script>
+    <script src="js/library/Chart.min.js"></script>
+    <script src="js/library/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
