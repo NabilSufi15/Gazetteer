@@ -268,8 +268,8 @@ $(document).ready(function () {
                 var deaths = result['data'].latest_data.deaths;
                 var recovered = result['data'].latest_data.recovered;
 
-                var todayCases = result['data'].timeline[0].new_confirmed;
-                var todayDeaths = result['data'].timeline[0].new_deaths;
+                var todayCases = result['data'].today.confirmed;
+                var todayDeaths = result['data'].today.deaths;
                 var todayRecovered = result['data'].timeline[0].new_recovered;
 
                 createPieChart(recovered, cases, deaths);
