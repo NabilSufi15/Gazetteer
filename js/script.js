@@ -24,7 +24,6 @@ $(document).ready(function () {
     var pieChart = null;
     var lineChart = null;
     var ctx = document.getElementById("pieChart").getContext("2d");
-    // var ctx2 = document.getElementById("barChart").getContext("2d");
     var ctx3 = document.getElementById("lineChart").getContext("2d");
     var xhr;
     var inter;
@@ -32,9 +31,9 @@ $(document).ready(function () {
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var issIcon = L.icon({
         iconUrl: 'images/ISS.png',
-        iconSize: [50, 50], // size of the icon
-        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+        iconSize: [50, 50], 
+        iconAnchor: [22, 94], 
+        popupAnchor: [-3, -76] 
     });
     const issMarker = L.marker([0, 0], { icon: issIcon });
 
@@ -66,14 +65,18 @@ $(document).ready(function () {
 
     //gets current location of user
     const onLocationFound = (e) => {
+        var radius = e.accuracy;
 
         L.marker(e.latlng).addTo(mymap)
             .bindPopup("You are here").openPopup();
+
+        L.circle(e.latlng, radius).addTo(mymap);
 
         onMapClick(e);
     }
 
     mymap.on('locationfound', onLocationFound);
+
 
     //displays data when country selected
     const onMapClick = (e) => {
@@ -504,7 +507,7 @@ $(document).ready(function () {
     //get gallery of photos of selected country 
     const Gallery = (country) => {
         $.ajax({
-            url: "php/pixabay.php",
+            url: "php/Pixabay.php",
             type: 'GET',
             dataType: 'json',
             data: {
