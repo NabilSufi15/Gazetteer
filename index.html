@@ -8,6 +8,7 @@
     <!-- css files -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/lightbox.css" rel="stylesheet" type="text/css" />
 
     <!-- Font Awesome -->
     <link
@@ -41,13 +42,26 @@
       <!-- menu -->
       <div class="menu fixed-top" id="menu">
         <!-- navbar -->
-        <nav class="btn-group" role="group" aria-label="First group" disabled>
+        <nav class="btn-group" aria-label="First group">
+          <button
+            type="button"
+            id="searchButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#search"
+            data-placement="bottom"
+            title="Search"
+          >
+            <i class="fas fa-search"></i>
+          </button>
           <button
             type="button"
             id="infoButton"
             class="btn btn-secondary btn-light"
             data-toggle="collapse"
             data-target="#info"
+            data-placement="bottom"
+            title="Information"
           >
             <i class="fas fa-info-circle"></i>
           </button>
@@ -57,6 +71,8 @@
             class="btn btn-secondary btn-light"
             data-toggle="collapse"
             data-target="#weather"
+            data-placement="bottom"
+            title="Weather"
           >
             <i class="fas fa-cloud-sun"></i>
           </button>
@@ -66,8 +82,32 @@
             class="btn btn-secondary btn-light"
             data-toggle="collapse"
             data-target="#virus"
+            data-placement="bottom"
+            title="Coronavirus Data"
           >
             <i class="fas fa-virus"></i>
+          </button>
+          <button
+            type="button"
+            id="newsButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#news"
+            data-placement="bottom"
+            title="News"
+          >
+            <i class="far fa-newspaper"></i>
+          </button>
+          <button
+            type="button"
+            id="galleryButton"
+            class="btn btn-secondary btn-light"
+            data-toggle="collapse"
+            data-target="#gallery"
+            data-placement="bottom"
+            title="Gallery"
+          >
+            <i class="fas fa-images"></i>
           </button>
           <button
             type="button"
@@ -75,6 +115,8 @@
             class="btn btn-secondary btn-light"
             data-toggle="collapse"
             data-target="#iss"
+            data-placement="bottom"
+            title="ISS"
           >
             <i class="fas fa-satellite"></i>
           </button>
@@ -83,6 +125,16 @@
 
         <!-- Menu Content -->
         <div class="menucontent">
+          <!-- Search List -->
+          <div class="collapse" data-parent="#menu" id="search">
+            <div class="card card-body bg-light">
+              <select id="selectCountry" class="form-control form-control-lg">
+                <option value disabled selected>Select a country</option>
+              </select>
+            </div>
+          </div>
+          <!-- /Search List End -->
+
           <!-- Country  Information -->
           <div class="collapse" data-parent="#menu" id="info">
             <div class="card card-body bg-light overflow-auto">
@@ -137,7 +189,7 @@
           <div class="collapse" data-parent="#menu" id="weather">
             <div class="card card-body bg-light overflow-auto">
               <h1 class="card-title text-center" id="city"></h1>
-              <h4 class="time card-text text-center text-muted" id=""></h4>
+              <h4 class="time card-text text-center text-muted"></h4>
               <div class="d-flex justify-content-center">
                 <p class="display-2" id="temperature">23</p>
                 <img alt="" height="150" id="icon" src="" width="150" />
@@ -166,6 +218,15 @@
                   </tr>
                 </tbody>
               </table>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#weatherF"
+              >
+                Check Forecast
+              </button>
             </div>
           </div>
           <!-- /Weather End -->
@@ -178,15 +239,37 @@
                 <h4 class="text-center text-muted" id="cases"></h4>
                 <canvas height="400" id="pieChart" width="400"></canvas>
               </div>
+
               <br />
-              <div>
-                <h4 class="text-center text-muted">Statistics Today</h4>
-                <canvas height="400" id="barChart" width="400"></canvas>
-              </div>
-              <br />
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#coronaData"
+              >
+                More Data
+              </button>
             </div>
           </div>
           <!-- /CoronaVirus Tracker End -->
+
+          <!-- News -->
+          <div class="collapse" data-parent="#menu" id="news">
+            <div
+              class="card card-body bg-light news-articles overflow-auto"
+            ></div>
+          </div>
+
+          <!-- /News End -->
+
+          <!-- Gallery -->
+          <div class="collapse" data-parent="#menu" id="gallery">
+            <div
+              class="card card-body bg-light gallery-photos overflow-auto"
+            ></div>
+          </div>
+          <!-- /Gallery End -->
 
           <!-- ISS -->
           <div class="collapse" data-parent="#menu" id="iss">
@@ -196,6 +279,7 @@
                 The
                 <a
                   href="https://www.nasa.gov/audience/forstudents/5-8/features/nasa-knows/what-is-the-iss-58.html"
+                  target="_blank"
                   >International Space Station</a
                 >
                 is a large spacecraft in orbit around Earth. It serves as a home
@@ -220,7 +304,7 @@
                   class="btn-group btn-group-lg mr-2"
                   role="group"
                 >
-                  <button class="btn btn btn-light" id="trackIss" type="button">
+                  <button class="btn btn-primary" id="trackIss" type="button">
                     ON
                   </button>
                 </div>
@@ -230,20 +314,94 @@
                   class="btn-group btn-group-lg"
                   role="group"
                 >
-                  <button class="btn btn btn-light" id="turnoff" type="button">
+                  <button class="btn btn-primary" id="turnoff" type="button">
                     OFF
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <!-- / ISS End -->
+          <!-- ISS End -->
         </div>
-        <!-- / Menu Content End -->
+        <!-- Menu Content End -->
       </div>
-      <!-- /Menu End -->
+      <!-- Menu End -->
     </div>
-    <!-- /Container End -->
+    <!-- Container End -->
+
+    <!-- Weather Forecast Popup Card -->
+    <div
+      class="modal"
+      id="weatherF"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Weather Forecast</h5>
+          </div>
+          <div class="modal-body">
+            <div class="card-body p-0">
+              <table class="table table-borderless table-sm mb-0">
+                <tbody id="weather-forecast"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Weather Forecast Popup Card End-->
+
+    <div
+      class="modal"
+      id="coronaData"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div>
+              <h4 id="data-title" class="text-center text-muted">
+                Daily Cases
+              </h4>
+              <canvas id="lineChart" width="800" height="600"></canvas>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="mx-auto">
+              <button id="daily-cases" class="btn btn-primary">Cases</button>
+              <button id="daily-deaths" class="btn btn-primary">Deaths</button>
+              <button id="daily-recovered" class="btn btn-primary">
+                Recovered
+              </button>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-secondary d-flex justify-content-start"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script
       crossorigin=""
@@ -253,6 +411,7 @@
     <script src="js/library/Chart.min.js"></script>
     <script src="js/library/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/library/lightbox.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
