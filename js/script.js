@@ -31,9 +31,9 @@ $(document).ready(function () {
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     var issIcon = L.icon({
         iconUrl: 'images/ISS.png',
-        iconSize: [50, 50], 
-        iconAnchor: [22, 94], 
-        popupAnchor: [-3, -76] 
+        iconSize: [50, 50],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76]
     });
     const issMarker = L.marker([0, 0], { icon: issIcon });
 
@@ -245,7 +245,6 @@ $(document).ready(function () {
                 $('#population').text(thousandSeparator(result['data'].population));
                 $('#area').text(`${thousandSeparator(result['data'].area)} km²`);
                 $('#currency').text(`${result['data'].currencies[0].name} (${result['data'].currencies[0].symbol})`);
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // your error code
@@ -274,8 +273,14 @@ $(document).ready(function () {
 
                 // console.log(result);
 
-                $('#summary').text(result['data'][0].summary);
-                $('#wiki').attr('href', `https://${result['data'][0].wikipediaUrl}`);
+                if (result['data'].length === 0) {
+                    $('#summary').text('Summary not available.');
+                    $('#wiki').addClass('disabled');
+                } else {
+                    $('#summary').text(result['data'][0].summary);
+                    $('#wiki').attr('href', `https://${result['data'][0].wikipediaUrl}`);
+                    $('#wiki').removeClass('disabled');
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 // your error code
@@ -302,7 +307,7 @@ $(document).ready(function () {
                 var temp = (result['data'].main.temp - 32) * 5 / 9;
 
                 $('#city').text(result['data'].name);
-                $('#icon').attr('src', `http://openweathermap.org/img/wn/${result['data']['weather'][0].icon}@4x.png`);
+                $('#icon').attr('src', `https://openweathermap.org/img/wn/${result['data']['weather'][0].icon}@4x.png`);
                 $('#temperature').text(`${Math.ceil(temp)}°`); //"°C"
                 $('#description').text(`${result['data']['weather'][0].description}`);
                 $('#humidity').text(`${result['data'].main.humidity}%`);
@@ -346,7 +351,7 @@ $(document).ready(function () {
                         '<p class="mb-1">' + Math.ceil(temp) + '&deg;</p>' +
                         '</td>' +
                         '<td class="float-right mr-3">' +
-                        '<img alt="" height="50" id="icon" src=' + `http://openweathermap.org/img/wn/${result['data'].daily[i].weather[0].icon}@4x.png` + ' width="50" />' +
+                        '<img alt="" height="50" id="icon" src=' + `https://openweathermap.org/img/wn/${result['data'].daily[i].weather[0].icon}@4x.png` + ' width="50" />' +
                         '</td>' +
                         '</tr>'
                     );

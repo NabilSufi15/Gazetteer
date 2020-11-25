@@ -28,6 +28,11 @@ body {
   width: 20rem;
 }
 
+#lightbox {
+  display: flex;
+  flex-direction: column-reverse;    
+}
+
 .btn-group {
   font-size: 2rem;
 }
@@ -83,6 +88,11 @@ body {
 
 .gallery-photos img:hover{
   filter: grayscale(0);
+}
+
+a.disabled {
+  color: gray;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 400px) {
