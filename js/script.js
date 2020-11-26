@@ -94,7 +94,7 @@ $(document).ready(function () {
 
                     // console.log(result);
 
-                    locationData.code = result['data'][0].components.country_code.toUpperCase();
+                    locationData.code = result['data'][0].components.country_code;
                     locationData.country = result['data'][0].components.country;
                     locationData.continent = result['data'][0].components.continent;
                     locationData.lat = result['data'][0].geometry.lat;
@@ -102,7 +102,7 @@ $(document).ready(function () {
                     locationData.iso = result['data'][0].components['ISO_3166-1_alpha-2'];
 
                     //displays the selected country using the country code
-                    displayCountryBorder(locationData.code);
+                    displayCountryBorder(locationData.iso);
                     displayCountryInfo(locationData.code);
                     displaySummary(locationData.country);
                     coronavirusTracker(locationData.code);
@@ -141,7 +141,7 @@ $(document).ready(function () {
 
                     // console.log(result);
 
-                    locationData.code = result['data'][0].components.country_code.toUpperCase();
+                    locationData.code = result['data'][0].components.country_code;
                     locationData.country = result['data'][0].components.country;
                     locationData.continent = result['data'][0].components.continent;
                     locationData.lat = result['data'][0].geometry.lat;
@@ -486,6 +486,16 @@ $(document).ready(function () {
                         '</div>'
                     );
                     $("#news-link").addClass("disabled");
+                } else if (result['data'].code === "rateLimited") {
+                    $(".news-articles").append('<div class="card justify-content-center ml-4 mb-2">' +
+                        '<div class="card-body">' +
+                        '<h5 id="news-title" class="card-title">Api Request Limit</h5>' +
+                        '<p id="news-description" class="card-text">News Api has reached its limited request.</p>' +
+                        '<a id="news-link" href="" class="btn btn-primary" target="_blank">Read More</a>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                    $("#news-link").addClass("disabled");
                 } else {
                     for (let i = 0; i < result['data'].articles.length; i++) {
 
@@ -493,7 +503,7 @@ $(document).ready(function () {
                             '<div class="card-body">' +
                             '<h5 id="news-title" class="card-title">' + result['data'].articles[i].title + '</h5>' +
                             '<p id="news-description" class="card-text">' + result['data'].articles[i].description + '</p>' +
-                            '<a id="news-link" href=' + result['data'].articles[i].url + 'class="btn btn-primary" target="_blank">Read More</a>' +
+                            '<a id="news-link" href=' + result['data'].articles[i].url + ' class="btn btn-primary" target="_blank">Read More</a>' +
                             '</div>' +
                             '</div>'
                         );
