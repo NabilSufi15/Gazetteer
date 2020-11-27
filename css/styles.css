@@ -106,6 +106,10 @@ a.disabled {
   .gallery-photos img{
     width: 250px;
   }
+
+  #news .news-articles .card{
+    width: 15rem;
+  }
 }
 
 @media screen and (min-height: 650px) and (max-height: 900px) {
