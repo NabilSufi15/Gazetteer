@@ -525,7 +525,7 @@ $(document).ready(function () {
     //get gallery of photos of selected country 
     const Gallery = (country) => {
         $.ajax({
-            url: "php/Pixabay.php",
+            url: "php/pixabay.php",
             type: 'GET',
             dataType: 'json',
             data: {
