@@ -173,7 +173,7 @@ $(document).ready(function () {
     //retrieves the country names from json file and puts them into a select form
     $.getJSON("json/countryBorders.geo.json", function (data) {
         $.each(data.features, function (key, value) {
-            countryList.push([value.properties.iso_a2, value.properties.name]);
+            countryList.push([value.properties.name, value.properties.name]);
         });
 
         //sorts into alphabetical order
@@ -197,14 +197,18 @@ $(document).ready(function () {
             },
             success: function (result) {
 
-                //console.log(result);
+                // console.log(result);
                 geoJSON = L.geoJson(result, {
-                    fillColor: '#BDC3C7',
-                    weight: 2,
-                    opacity: 1,
-                    color: 'gray',
-                    dashArray: '3',
-                    fillOpacity: 0.7
+                    fillColor: 'green',
+                    stroke: 'green',
+                    width: 4,
+                    opacity: 0.7,
+                    color: 'green',
+                    dashArray: '10,10',
+                    fillOpacity: 0.7,
+                    fillRule: 'evenodd',
+                    lineCap: "round",
+                    lineJoin: "round"
                 });
                 geoJSON.addTo(mymap);
 
@@ -213,7 +217,7 @@ $(document).ready(function () {
                     padding: [50, 50],
                     maxZoom: 18,
                     animate: true,
-                    duration: 5
+                    duration: 3
                 });
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -534,6 +538,10 @@ $(document).ready(function () {
 
                 $(".gallery-photos").empty();
                 $(".gallery-photos").append('<h1 class="card-title text-center">Gallery</h1>');
+
+                if(result['data'].hits.length == 0 || result['data'].hits.length == "null"){
+                    $(".gallery-photos").append('<h3 class="text-center">Gallery Unavailable</h1>')
+                }
 
                 for (let i = 0; i < result['data'].hits.length; i++) {
 
