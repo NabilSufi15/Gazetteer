@@ -95,7 +95,7 @@ $(document).ready(function () {
                     // console.log(result);
 
                     locationData.code = result['data'][0].components.country_code;
-                    locationData.country = result['data'][0].components.country;
+                    locationData.country = result['data'][0].components.country.split(' ').join('%20');
                     locationData.continent = result['data'][0].components.continent;
                     locationData.lat = result['data'][0].geometry.lat;
                     locationData.lan = result['data'][0].geometry.lng;
@@ -127,13 +127,13 @@ $(document).ready(function () {
 
     //Gets location selected 
     $('#selectCountry').on('change', function (e) {
-
+        var ex = this.value.split(' ').join('%20');
         $.ajax({
             url: "php/LocationCode.php",
             type: 'GET',
             dataType: 'json',
             data: {
-                CODE: this.value,
+                CODE: ex,
             },
             success: function (result) {
 
@@ -142,7 +142,7 @@ $(document).ready(function () {
                     // console.log(result);
 
                     locationData.code = result['data'][0].components.country_code;
-                    locationData.country = result['data'][0].components.country;
+                    locationData.country = result['data'][0].components.country.split(' ').join('%20');
                     locationData.continent = result['data'][0].components.continent;
                     locationData.lat = result['data'][0].geometry.lat;
                     locationData.lan = result['data'][0].geometry.lng;
@@ -173,6 +173,7 @@ $(document).ready(function () {
     //retrieves the country names from json file and puts them into a select form
     $.getJSON("json/countryBorders.geo.json", function (data) {
         $.each(data.features, function (key, value) {
+            // value.properties.name.split(' ').join('%20'); value.properties.iso_a2
             countryList.push([value.properties.name, value.properties.name]);
         });
 
@@ -480,26 +481,24 @@ $(document).ready(function () {
                 $('.news-articles ').empty();
                 $(".news-articles ").append('<h1 class="card-title text-center">Latest News</h1>');
 
-                if (result['data'].articles.length === 0) {
+                if (result['data'].status === "error") {
+                    $(".news-articles").append('<div class="card justify-content-center ml-4 mb-2">' +
+                        '<div class="card-body">' +
+                        '<h5 id="news-title" class="card-title">No News</h5>' +
+                        '<p id="news-description" class="card-text">News Api has reached its request limit today. Apologies for the inconvenience</p>' +
+                        '<a id="news-link" href="" class="btn btn-primary disabled" target="_blank">Read More</a>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                } else if (result['data'].articles.length === 0) {
                     $(".news-articles").append('<div class="card justify-content-center ml-4 mb-2">' +
                         '<div class="card-body">' +
                         '<h5 id="news-title" class="card-title">No News</h5>' +
                         '<p id="news-description" class="card-text">News for this country is not available</p>' +
-                        '<a id="news-link" href="" class="btn btn-primary" target="_blank">Read More</a>' +
+                        '<a id="news-link" href="" class="btn btn-primary disabled" target="_blank">Read More</a>' +
                         '</div>' +
                         '</div>'
                     );
-                    $("#news-link").addClass("disabled");
-                } else if (result['data'].code === "rateLimited") {
-                    $(".news-articles").append('<div class="card justify-content-center ml-4 mb-2">' +
-                        '<div class="card-body">' +
-                        '<h5 id="news-title" class="card-title">Api Request Limit</h5>' +
-                        '<p id="news-description" class="card-text">News Api has reached its limited request.</p>' +
-                        '<a id="news-link" href="" class="btn btn-primary" target="_blank">Read More</a>' +
-                        '</div>' +
-                        '</div>'
-                    );
-                    $("#news-link").addClass("disabled");
                 } else {
                     for (let i = 0; i < result['data'].articles.length; i++) {
 
@@ -539,7 +538,7 @@ $(document).ready(function () {
                 $(".gallery-photos").empty();
                 $(".gallery-photos").append('<h1 class="card-title text-center">Gallery</h1>');
 
-                if(result['data'].hits.length == 0 || result['data'].hits.length == "null"){
+                if (result['data'].hits.length == 0 || result['data'].hits.length == "null") {
                     $(".gallery-photos").append('<h3 class="text-center">Gallery Unavailable</h1>')
                 }
 

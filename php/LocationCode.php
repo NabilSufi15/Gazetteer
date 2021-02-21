@@ -3,7 +3,7 @@
 	$executionStartTime = microtime(true) / 1000;
 
 	// concatenates the url for the API call with the parameters.
-    $url= 'https://api.opencagedata.com/geocode/v1/json?q=countrycode=' . $_REQUEST['CODE'] . '&key=bdd7c45dadb6456c8643e18b24c03baf';
+    $url= 'https://api.opencagedata.com/geocode/v1/json?q=' . $_REQUEST['CODE'] . '&key=bdd7c45dadb6456c8643e18b24c03baf';
 
 	//  initiates the cURL object and sets some parameters. These are often documented by the 
 	// API provider and the ones that you see are the most used and will workin many scenarios.
